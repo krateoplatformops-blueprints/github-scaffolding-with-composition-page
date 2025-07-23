@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Values.global.krateoNamespace | default "argocd" }}
+  labels:
+    {{- include "frontend-github-scaffolding.labels" . | nindent 4 }}
+spec:
+  project: {{ .Values.argocd.application.project | default "default" }}
+  source:
+    repoURL: {{ include "frontend-github-scaffolding.toRepoUrl" . }}
+    targetRevision: {{ .Values.git.toRepo.branch }}
+    path: {{ .Values.argocd.application.source.path }}
+  destination:
+    server: {{ .Values.argocd.application.destination.server }}
+    namespace: {{ .Values.argocd.application.destination.namespace }}
+  syncPolicy:
+    automated:
+      prune: {{ .Values.argocd.application.syncPolicy.automated.prune }}
+      selfHeal: {{ .Values.argocd.application.syncPolicy.automated.selfHeal }}
+    syncOptions:
+      - CreateNamespace=true

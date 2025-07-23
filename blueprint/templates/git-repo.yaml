@@ -1,0 +1,16 @@
+apiVersion: github.kog.krateo.io/v1alpha1
+kind: Repo
+metadata:
+  name: {{ .Release.Name }}-repo
+  labels:
+    {{- include "frontend-github-scaffolding.labels" . | nindent 4 }}
+  annotations:
+    krateo.io/connector-verbose: "{{ .Values.git.toRepo.verbose }}"
+    krateo.io/deletion-policy: {{ .Values.git.toRepo.deletionPolicy | lower }}
+spec:
+  authenticationRefs:
+    bearerAuthRef: bearer-github-ref
+  org: {{ .Values.git.toRepo.org }}
+  name: {{ .Values.git.toRepo.name }}
+  private: {{ .Values.git.toRepo.private }}
+  auto_init: {{ .Values.git.toRepo.initialize }}
