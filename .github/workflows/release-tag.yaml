@@ -39,5 +39,5 @@ jobs:
           charts_dir: ./
           charts_url: https://marketplace.krateo.io
           owner: krateoplatformops-blueprints
-          repository: helm-charts
+          repository: marketplace
           branch: gh-pages
