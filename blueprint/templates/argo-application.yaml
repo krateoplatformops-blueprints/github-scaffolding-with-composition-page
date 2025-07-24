@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: {{ .Release.Name }}
-  namespace: {{ .Values.global.krateoNamespace | default "argocd" }}
+  namespace: {{ .Values.argocd.namespace }}
   labels:
     {{- include "frontend-github-scaffolding.labels" . | nindent 4 }}
 spec:

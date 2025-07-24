@@ -110,14 +110,6 @@ git:
   # @schema
   unsupportedCapabilities: true
   # @schema
-  # description: DeletionPolicy specifies what will happen to the underlying external when this managed resource is deleted.
-  # enum:
-  # - Delete
-  # - Orphan
-  # default: Orphan
-  # @schema
-  deletionPolicy: Orphan
-  # @schema
   # type: boolean
   # default: true
   # description: Insecure is useful with hand made SSL certs

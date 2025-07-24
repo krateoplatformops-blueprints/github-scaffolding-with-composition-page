@@ -38,6 +38,6 @@ jobs:
           token: ${{ steps.authenticate.outputs.token }}
           charts_dir: ./
           charts_url: https://marketplace.krateo.io
-          owner: krateoplatformops-templates
+          owner: krateoplatformops-blueprints
           repository: helm-charts
           branch: gh-pages
