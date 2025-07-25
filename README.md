@@ -159,7 +159,7 @@ git:
   fromRepo:
     scmUrl: https://github.com
     org: krateoplatformops-blueprints
-    name: frontend-github-scaffolding-blueprint
+    name: frontend-github-scaffolding
     branch: main
     path: skeleton/
     credentials:
@@ -207,7 +207,7 @@ cat <<EOF | kubectl apply -f -
 apiVersion: core.krateo.io/v1alpha1
 kind: CompositionDefinition
 metadata:
-  name: frontend-github-scaffolding-blueprint
+  name: frontend-github-scaffolding
   namespace: krateo-system
 spec:
   chart:
@@ -221,7 +221,7 @@ Install the Blueprint using, as metadata.name, the *Composition* name (the Helm 
 
 ```sh
 apiVersion: composition.krateo.io/v0-0-1
-kind: Frontendgithubscaffolding
+kind: FrontendGithubScaffolding
 metadata:
   name: <release-name> 
   namespace: <release-namespace> 
@@ -250,7 +250,7 @@ spec:
     fromRepo:
       scmUrl: https://github.com
       org: krateoplatformops-blueprints
-      name: frontend-github-scaffolding-blueprint
+      name: frontend-github-scaffolding
       branch: main
       path: skeleton/
       credentials:
