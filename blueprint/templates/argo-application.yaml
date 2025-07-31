@@ -30,7 +30,7 @@ spec:
   syncPolicy:
     {{- if $cr }}
       {{- $annotations := $cr.metadata.annotations | default dict }}
-      {{- if or (not (hasKey $annotations "krateo.io/paused")) (ne (index $annotations "krateo.io/paused") "true") }}
+      {{- if and (hasKey $annotations "krateo.io/paused") (eq (index $annotations "krateo.io/paused") "true") }}
     automated: {}
       {{- else }}
     automated:

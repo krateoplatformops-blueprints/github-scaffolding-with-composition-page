@@ -20,7 +20,7 @@ metadata:
   {{- if $cr }}
   annotations:
     {{- $annotations := $cr.metadata.annotations | default dict }}
-    {{- if or (not (hasKey $annotations "krateo.io/paused")) (ne (index $annotations "krateo.io/paused") "true") }}
+    {{- if and (hasKey $annotations "krateo.io/paused") (eq (index $annotations "krateo.io/paused") "true") }}
     krateo.io/paused: "true"
     {{- else }}
     krateo.io/paused: "false"
