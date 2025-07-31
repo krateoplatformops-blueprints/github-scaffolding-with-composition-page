@@ -220,6 +220,7 @@ EOF
 Install the Blueprint using, as metadata.name, the *Composition* name (the Helm Chart name of the composition):
 
 ```sh
+cat <<EOF | kubectl apply -f -
 apiVersion: composition.krateo.io/v0-0-1
 kind: FrontendGithubScaffolding
 metadata:
@@ -245,7 +246,6 @@ spec:
       port: 31180
   git:
     unsupportedCapabilities: true
-    deletionPolicy: Orphan
     insecure: true
     fromRepo:
       scmUrl: https://github.com
@@ -275,4 +275,5 @@ spec:
       initialize: true
       deletionPolicy: Delete
       verbose: false
+EOF
 ```

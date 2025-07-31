@@ -1,13 +1,16 @@
 {{- $global := .Values.global | default (dict) }}
 
-{{- $group := dig "compositionGroup" "" $global | default "" }}
-{{- $version := dig "compositionInstalledVersion" "" $global | default "" }}
-{{- $kind := dig "compositionKind" "" $global | default "" }}
-{{- $namespace := dig "compositionNamespace" "" $global | default "" }}
-{{- $name := dig "compositionName" "" $global | default "" }}
+{{- $group := dig "compositionGroup" "" $global }}
+{{- $version := dig "compositionInstalledVersion" "" $global }}
+{{- $kind := dig "compositionKind" "" $global }}
+{{- $namespace := dig "compositionNamespace" "" $global }}
+{{- $name := dig "compositionName" "" $global }}
 
-{{- $gv := printf "%s/%s" $group $version }}
-{{- $cr := lookup $gv $kind $namespace $name }}
+{{- $cr := "" }}  # start falsey
+{{- if and $group $version $kind }}
+  {{- $gv := printf "%s/%s" $group $version }}
+  {{- $cr = (lookup $gv $kind $namespace $name) }}
+{{- end }}
 apiVersion: github.kog.krateo.io/v1alpha1
 kind: Repo
 metadata:
@@ -18,12 +21,12 @@ metadata:
     krateo.io/connector-verbose: "{{ .Values.git.toRepo.verbose }}"
     krateo.io/deletion-policy: {{ .Values.git.toRepo.deletionPolicy | lower }}
     {{- if $cr }}
-      {{- $annotations := $cr.metadata.annotations | default dict }}
-      {{- if or (not (hasKey $annotations "krateo.io/paused")) (ne (index $annotations "krateo.io/paused") "true") }}
+    {{- $annotations := $cr.metadata.annotations | default dict }}
+    {{- if or (not (hasKey $annotations "krateo.io/paused")) (ne (index $annotations "krateo.io/paused") "true") }}
     krateo.io/paused: "true"
-      {{- else }}
+    {{- else }}
     krateo.io/paused: "false"
-      {{- end }}
+    {{- end }}
     {{- end }}
 spec:
   authenticationRefs:
