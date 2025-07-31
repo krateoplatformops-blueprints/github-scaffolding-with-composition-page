@@ -1,3 +1,13 @@
+{{- $global := .Values.global | default (dict) }}
+
+{{- $group := dig "compositionGroup" "" $global | default "" }}
+{{- $version := dig "compositionInstalledVersion" "" $global | default "" }}
+{{- $kind := dig "compositionKind" "" $global | default "" }}
+{{- $namespace := dig "compositionNamespace" "" $global | default "" }}
+{{- $name := dig "compositionName" "" $global | default "" }}
+
+{{- $gv := printf "%s/%s" $group $version }}
+{{- $cr := lookup $gv $kind $namespace $name }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -15,8 +25,19 @@ spec:
     server: {{ .Values.argocd.application.destination.server }}
     namespace: {{ .Values.argocd.application.destination.namespace }}
   syncPolicy:
+    {{- if $cr }}
+      {{- $annotations := $cr.metadata.annotations | default dict }}
+      {{- if or (not (hasKey $annotations "krateo.io/paused")) (ne (index $annotations "krateo.io/paused") "true") }}
+    automated: {}
+      {{- else }}
     automated:
       prune: {{ .Values.argocd.application.syncPolicy.automated.prune }}
       selfHeal: {{ .Values.argocd.application.syncPolicy.automated.selfHeal }}
+      {{- end }}
+    {{- else }}
+    automated:
+      prune: {{ .Values.argocd.application.syncPolicy.automated.prune }}
+      selfHeal: {{ .Values.argocd.application.syncPolicy.automated.selfHeal }}
+    {{- end }}
     syncOptions:
       - CreateNamespace=true
