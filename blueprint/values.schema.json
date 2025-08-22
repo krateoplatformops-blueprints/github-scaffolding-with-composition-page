@@ -150,7 +150,7 @@
               "type": "string"
             },
             "name": {
-              "default": "github-scaffolding",
+              "default": "github-scaffolding-with-composition-page",
               "description": "Name for the source Git repository",
               "title": "name",
               "type": "string"

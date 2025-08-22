@@ -4,11 +4,11 @@ metadata:
   name: {{ .Release.Name }}
   namespace: {{ .Values.argocd.namespace }}
   labels:
-    {{- include "github-scaffolding.labels" . | nindent 4 }}
+    {{- include "github-scaffolding-with-composition-page.labels" . | nindent 4 }}
 spec:
   project: {{ .Values.argocd.application.project | default "default" }}
   source:
-    repoURL: {{ include "github-scaffolding.toRepoUrl" . }}
+    repoURL: {{ include "github-scaffolding-with-composition-page.toRepoUrl" . }}
     targetRevision: {{ .Values.git.toRepo.branch }}
     path: {{ .Values.argocd.application.source.path }}
   destination:

@@ -3,7 +3,7 @@ kind: Repo
 metadata:
   name: {{ .Release.Name }}-repo
   labels:
-    {{- include "github-scaffolding.labels" . | nindent 4 }}
+    {{- include "github-scaffolding-with-composition-page.labels" . | nindent 4 }}
   annotations:
     krateo.io/paused: "{{ default false (and .Values.global .Values.global.gracefullyPaused) }}"
 spec:
@@ -14,7 +14,7 @@ spec:
     name: {{ .Release.Name }}-replace-values
     key: values
   fromRepo:
-    url: {{ include "github-scaffolding.fromRepoUrl" . }}
+    url: {{ include "github-scaffolding-with-composition-page.fromRepoUrl" . }}
     branch: {{ .Values.git.fromRepo.branch }}
     authMethod: {{ .Values.git.fromRepo.credentials.authMethod }}
     path: {{ .Values.git.fromRepo.path }}
@@ -23,7 +23,7 @@ spec:
       name: {{ .Values.git.fromRepo.credentials.secretRef.name }}
       key: {{ .Values.git.fromRepo.credentials.secretRef.key }}
   toRepo:
-    url: {{ include "github-scaffolding.toRepoUrl" . }}
+    url: {{ include "github-scaffolding-with-composition-page.toRepoUrl" . }}
     branch: {{ .Values.git.toRepo.branch }}
     authMethod: {{ .Values.git.toRepo.credentials.authMethod }}
     path: {{ .Values.git.toRepo.path }}

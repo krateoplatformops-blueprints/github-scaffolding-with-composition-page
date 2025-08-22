@@ -3,7 +3,7 @@ kind: Repo
 metadata:
   name: {{ .Release.Name }}-repo
   labels:
-    {{- include "github-scaffolding.labels" . | nindent 4 }}
+    {{- include "github-scaffolding-with-composition-page.labels" . | nindent 4 }}
   annotations:
     krateo.io/connector-verbose: "{{ .Values.git.toRepo.verbose }}"
     krateo.io/deletion-policy: {{ .Values.git.toRepo.deletionPolicy | lower }}
