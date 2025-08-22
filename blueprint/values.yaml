@@ -137,9 +137,9 @@ git:
     # @schema
     # description: Name for the source Git repository
     # type: string
-    # default: github-scaffolding
+    # default: github-scaffolding-with-composition-page
     # @schema
-    name: github-scaffolding
+    name: github-scaffolding-with-composition-page
     # @schema
     # description: Branch of Git repository used as template for the application skeleton
     # type: string
