@@ -95,12 +95,6 @@ kubectl wait deployments github-provider-kog-repo-controller --for condition=Ava
 
 ```
 
-### Create a *fireworksapp-system* namespace
-
-```sh
-kubectl create ns fireworksapp-system
-```
-
 ### Create a BearerAuth Custom Resource
 
 Create a BearerAuth Custom Resource to make the GitHub Provider able to authenticate with the GitHub API using the previously created token.
@@ -111,7 +105,7 @@ apiVersion: github.kog.krateo.io/v1alpha1
 kind: BearerAuth
 metadata:
   name: bearer-github-ref
-  namespace: fireworksapp-system
+  namespace: demo-system
 spec:
   tokenRef:
     key: token
@@ -222,7 +216,7 @@ Install the Blueprint using, as metadata.name, the *Composition* name (the Helm 
 ```sh
 cat <<EOF | kubectl apply -f -
 apiVersion: composition.krateo.io/v0-0-1
-kind: FrontendGithubScaffolding
+kind: GithubScaffolding
 metadata:
   name: <release-name> 
   namespace: <release-namespace> 
