@@ -29,6 +29,7 @@ home: https://krateo.io
 icon: "https://github.com/krateoplatformops/krateo/blob/main/docs/media/logo.svg"
 keywords:
   - operations
+  - portal
 sources:
   - https://github.com/krateoplatformops-blueprints/github-scaffolding-with-composition-page
 annotations:
