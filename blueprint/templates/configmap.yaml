@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-replace-values
   labels:
-    {{- include "frontend-github-scaffolding.labels" . | nindent 4 }}
+    {{- include "github-scaffolding.labels" . | nindent 4 }}
 data:
   values: |
     { "organizationName": "{{ .Values.git.toRepo.org }}",

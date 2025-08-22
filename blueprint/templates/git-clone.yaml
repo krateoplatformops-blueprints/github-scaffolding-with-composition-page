@@ -1,31 +1,11 @@
-{{- $global := .Values.global | default (dict) }}
-
-{{- $group := dig "compositionGroup" "" $global }}
-{{- $version := dig "compositionInstalledVersion" "" $global }}
-{{- $kind := dig "compositionKind" "" $global }}
-{{- $namespace := dig "compositionNamespace" "" $global }}
-{{- $name := dig "compositionName" "" $global }}
-
-{{- $cr := "" }}  # start falsey
-{{- if and $group $version $kind }}
-  {{- $gv := printf "%s/%s" $group $version }}
-  {{- $cr = (lookup $gv $kind $namespace $name) }}
-{{- end }}
 apiVersion: git.krateo.io/v1alpha1
 kind: Repo
 metadata:
   name: {{ .Release.Name }}-repo
   labels:
-    {{- include "frontend-github-scaffolding.labels" . | nindent 4 }}
-  {{- if $cr }}
+    {{- include "github-scaffolding.labels" . | nindent 4 }}
   annotations:
-    {{- $annotations := $cr.metadata.annotations | default dict }}
-    {{- if and (hasKey $annotations "krateo.io/paused") (eq (index $annotations "krateo.io/paused") "true") }}
-    krateo.io/paused: "true"
-    {{- else }}
-    krateo.io/paused: "false"
-    {{- end }}
-  {{- end }}
+    krateo.io/paused: "{{ default false (and .Values.global .Values.global.gracefullyPaused) }}"
 spec:
   unsupportedCapabilities: {{ .Values.git.unsupportedCapabilities }}
   insecure: {{ .Values.git.insecure }}
@@ -34,7 +14,7 @@ spec:
     name: {{ .Release.Name }}-replace-values
     key: values
   fromRepo:
-    url: {{ include "frontend-github-scaffolding.fromRepoUrl" . }}
+    url: {{ include "github-scaffolding.fromRepoUrl" . }}
     branch: {{ .Values.git.fromRepo.branch }}
     authMethod: {{ .Values.git.fromRepo.credentials.authMethod }}
     path: {{ .Values.git.fromRepo.path }}
@@ -43,7 +23,7 @@ spec:
       name: {{ .Values.git.fromRepo.credentials.secretRef.name }}
       key: {{ .Values.git.fromRepo.credentials.secretRef.key }}
   toRepo:
-    url: {{ include "frontend-github-scaffolding.toRepoUrl" . }}
+    url: {{ include "github-scaffolding.toRepoUrl" . }}
     branch: {{ .Values.git.toRepo.branch }}
     authMethod: {{ .Values.git.toRepo.credentials.authMethod }}
     path: {{ .Values.git.toRepo.path }}

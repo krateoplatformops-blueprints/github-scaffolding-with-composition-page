@@ -137,9 +137,9 @@ git:
     # @schema
     # description: Name for the source Git repository
     # type: string
-    # default: frontend-github-scaffolding-blueprint
+    # default: github-scaffolding
     # @schema
-    name: frontend-github-scaffolding-blueprint
+    name: github-scaffolding
     # @schema
     # description: Branch of Git repository used as template for the application skeleton
     # type: string

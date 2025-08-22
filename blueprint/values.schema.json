@@ -150,7 +150,7 @@
               "type": "string"
             },
             "name": {
-              "default": "frontend-github-scaffolding-blueprint",
+              "default": "github-scaffolding",
               "description": "Name for the source Git repository",
               "title": "name",
               "type": "string"

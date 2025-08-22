@@ -3,7 +3,7 @@
 This is a Blueprint used to scaffold a toolchain to host and deploy a fully functional frontend App (FireworksApp).
 
 This Blueprint implements the following steps:
-1. Create an empty Github repository (on github.com) - [link](https://github.com/krateoplatformops-blueprints/frontend-github-scaffolding-blueprint/blob/main/chart/templates/git-repo.yaml)
+1. Create an empty Github repository (on github.com) - [link](https://github.com/krateoplatformops-blueprints/github-scaffolding/blob/main/chart/templates/git-repo.yaml)
 2. Push the code from the [skeleton](https://github.com/krateoplatformops/krateo-v2-template-fireworksapp/tree/main/skeleton) to the previously create repository - [link](https://github.com/krateoplatformops/krateo-v2-template-fireworksapp/blob/main/chart/templates/git-clone.yaml)
 3. A Continuous Integration pipeline (GitHub [workflow](https://github.com/krateoplatformops/krateo-v2-template-fireworksapp/blob/main/skeleton/.github/workflows/ci.yml)) will build the Dockerfile of the frontend app and the resulting image will be published as a Docker image on the GitHub Package registry
 4. An ArgoCD Application will be deployed to listen to the Helm Chart of the FireworksApp application and deploy the chart on the same Kubernetes cluster where ArgoCD is hosted
@@ -129,10 +129,10 @@ Download Helm Chart values:
 ```sh
 helm repo add marketplace https://marketplace.krateo.io
 helm repo update marketplace
-helm inspect values marketplace/frontend-github-scaffolding --version 0.0.1 > ~/frontend-github-scaffolding-values.yaml
+helm inspect values marketplace/github-scaffolding --version 0.0.1 > ~/github-scaffolding-values.yaml
 ```
 
-Modify the *frontend-github-scaffolding-values.yaml* file as the following example:
+Modify the *github-scaffolding-values.yaml* file as the following example:
 
 ```yaml
 argocd:
@@ -159,7 +159,7 @@ git:
   fromRepo:
     scmUrl: https://github.com
     org: krateoplatformops-blueprints
-    name: frontend-github-scaffolding
+    name: github-scaffolding
     branch: main
     path: skeleton/
     credentials:
@@ -189,11 +189,11 @@ git:
 Install the Blueprint:
 
 ```sh
-helm install <release-name> frontend-github-scaffolding \
+helm install <release-name> github-scaffolding \
   --repo https://marketplace.krateo.io \
   --namespace <release-namespace> \
   --create-namespace \
-  -f ~/frontend-github-scaffolding-values.yaml
+  -f ~/github-scaffolding-values.yaml
   --version 0.0.1 \
   --wait
 ```
@@ -207,11 +207,11 @@ cat <<EOF | kubectl apply -f -
 apiVersion: core.krateo.io/v1alpha1
 kind: CompositionDefinition
 metadata:
-  name: frontend-github-scaffolding
+  name: github-scaffolding
   namespace: krateo-system
 spec:
   chart:
-    repo: frontend-github-scaffolding
+    repo: github-scaffolding
     url: https://marketplace.krateo.io
     version: 0.0.1
 EOF
@@ -250,7 +250,7 @@ spec:
     fromRepo:
       scmUrl: https://github.com
       org: krateoplatformops-blueprints
-      name: frontend-github-scaffolding
+      name: github-scaffolding
       branch: main
       path: skeleton/
       credentials:
