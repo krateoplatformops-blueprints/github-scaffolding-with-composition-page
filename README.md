@@ -1,4 +1,4 @@
-# *Frontend GitHub Scaffolding* Blueprint
+# *GitHub Scaffolding* Blueprint
 
 This is a Blueprint used to scaffold a toolchain to host and deploy a fully functional frontend App (FireworksApp).
 
