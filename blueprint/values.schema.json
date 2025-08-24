@@ -57,6 +57,12 @@
               "title": "destination",
               "type": "object"
             },
+            "syncEnabled": {
+              "default": false,
+              "description": "ArgoCD Application synchronization enabled",
+              "title": "ArgoCD Application synchronization enabled",
+              "type": "boolean"
+            },
             "syncPolicy": {
               "additionalProperties": false,
               "description": "ArgoCD Application synchronization policies section",

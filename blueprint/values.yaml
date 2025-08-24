@@ -50,6 +50,12 @@ argocd:
       # @schema
       namespace: fireworks-app
     # @schema
+    # description: ArgoCD Application synchronization enabled
+    # type: boolean
+    # default: false
+    # @schema
+    syncEnabled: false
+    # @schema
     # description: ArgoCD Application synchronization policies section
     # type: object
     # @schema

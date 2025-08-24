@@ -271,3 +271,42 @@ spec:
       verbose: false
 EOF
 ```
+
+### Install using Krateo Composable Portal
+
+```sh
+cat <<EOF | kubectl apply -f -
+apiVersion: core.krateo.io/v1alpha1
+kind: CompositionDefinition
+metadata:
+  name: portal-blueprint-page
+  namespace: krateo-system
+spec:
+  chart:
+    repo: portal-blueprint-page
+    url: https://marketplace.krateo.io
+    version: 0.0.1
+EOF
+```
+
+Install the Blueprint using, as metadata.name, the *Blueprint* name (the Helm Chart name of the blueprint):
+
+```sh
+cat <<EOF | kubectl apply -f -
+apiVersion: composition.krateo.io/v0-0-1
+kind: PortalBlueprintPage
+metadata:
+  name: github-scaffolding	
+  namespace: demo-system
+spec:
+  blueprint:
+    version: 0.0.1 # this is the Blueprint version
+    hasPage: false
+  form:
+    alphabeticalOrder: false
+  panel:
+    title: GitHub Scaffolding
+    icon:
+      name: fa-cubes
+EOF
+```
