@@ -138,6 +138,7 @@ argocd:
     destination:
       server: https://kubernetes.default.svc
       namespace: fireworks-app
+    syncEnabled: false
     syncPolicy:
       automated:
         prune: true
@@ -230,6 +231,7 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: fireworks-app
+      syncEnabled: false
       syncPolicy:
         automated:
           prune: true
