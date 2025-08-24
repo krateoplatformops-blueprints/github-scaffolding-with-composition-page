@@ -1,4 +1,4 @@
-# *GitHub Scaffolding* Blueprint
+# *GitHub Scaffolding* Blueprint with Composition page
 
 This is a Blueprint used to scaffold a toolchain to host and deploy a fully functional frontend App (FireworksApp).
 
@@ -8,6 +8,7 @@ This Blueprint implements the following steps:
 3. A Continuous Integration pipeline (GitHub [workflow](https://github.com/krateoplatformops/krateo-v2-template-fireworksapp/blob/main/skeleton/.github/workflows/ci.yml)) will build the Dockerfile of the frontend app and the resulting image will be published as a Docker image on the GitHub Package registry
 4. An ArgoCD Application will be deployed to listen to the Helm Chart of the FireworksApp application and deploy the chart on the same Kubernetes cluster where ArgoCD is hosted
 5. The FireworksApp will be deployed with a Service type of NodePort kind exposed on the chosen port.
+6. A composition page is available on Krateo Composable Portal
 
 ## Requirements
 
@@ -138,6 +139,7 @@ argocd:
     destination:
       server: https://kubernetes.default.svc
       namespace: fireworks-app
+    syncEnabled: false
     syncPolicy:
       automated:
         prune: true
@@ -216,7 +218,7 @@ Install the Blueprint using, as metadata.name, the *Composition* name (the Helm 
 ```sh
 cat <<EOF | kubectl apply -f -
 apiVersion: composition.krateo.io/v0-0-1
-kind: GithubScaffolding
+kind: GithubScaffoldingWithCompositionPage
 metadata:
   name: <release-name> 
   namespace: <release-namespace> 
@@ -230,6 +232,7 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: fireworks-app
+      syncEnabled: false
       syncPolicy:
         automated:
           prune: true
@@ -296,16 +299,16 @@ cat <<EOF | kubectl apply -f -
 apiVersion: composition.krateo.io/v0-0-1
 kind: PortalBlueprintPage
 metadata:
-  name: github-scaffolding	
+  name: github-scaffolding-with-composition-page
   namespace: demo-system
 spec:
   blueprint:
     version: 0.0.1 # this is the Blueprint version
-    hasPage: false
+    hasPage: true
   form:
     alphabeticalOrder: false
   panel:
-    title: GitHub Scaffolding
+    title: GitHub Scaffolding with Composition Page
     icon:
       name: fa-cubes
 EOF
