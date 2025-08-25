@@ -20,7 +20,7 @@ This Blueprint implements the following steps:
 ```sh
 helm repo add krateo https://charts.krateo.io
 helm repo update krateo
-helm install github-provider-kog krateo/github-provider-kog --namespace krateo-system --create-namespace --wait --version 0.0.7
+helm install github-provider-kog krateo/github-provider-kog --namespace krateo-system --create-namespace --wait --version 0.1.0
 helm install git-provider krateo/git-provider --namespace krateo-system --create-namespace --wait --version 0.10.1
 helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update argo
@@ -88,30 +88,27 @@ EOF
 ### Wait for GitHub Provider to be ready
 
 ```sh
-until kubectl get deployment github-provider-kog-repo-controller -n krateo-system &>/dev/null; do
-  echo "Waiting for Repo controller deployment to be created..."
-  sleep 5
-done
-kubectl wait deployments github-provider-kog-repo-controller --for condition=Available=True --namespace krateo-system --timeout=300s
-
+kubectl wait restdefinitions.ogen.krateo.io github-provider-kog-repo --for condition=Ready=True --namespace krateo-system --timeout=300s
 ```
 
-### Create a BearerAuth Custom Resource
+### Create a RepoConfiguration Custom Resource
 
-Create a BearerAuth Custom Resource to make the GitHub Provider able to authenticate with the GitHub API using the previously created token.
+Create a RepoConfiguration Custom Resource to make the GitHub Provider able to authenticate with the GitHub API using the previously created token.
 
 ```sh
 cat <<EOF | kubectl apply -f -
-apiVersion: github.kog.krateo.io/v1alpha1
-kind: BearerAuth
+apiVersion: github.ogen.krateo.io/v1alpha1
+kind: RepoConfiguration
 metadata:
-  name: bearer-github-ref
+  name: repo-config
   namespace: demo-system
 spec:
-  tokenRef:
-    key: token
-    name: github-repo-creds
-    namespace: krateo-system
+  authentication:
+    bearer:
+      tokenRef:
+        name: github-repo-creds
+        namespace: krateo-system
+        key: token
 EOF
 ```
 
@@ -180,6 +177,9 @@ git:
     initialize: true
     deletionPolicy: Delete
     verbose: false
+    configurationRef:
+      name: repo-config
+      namespace: demo-system
 ```
 
 Install the Blueprint:
@@ -272,6 +272,9 @@ spec:
       initialize: true
       deletionPolicy: Delete
       verbose: false
+      configurationRef:
+        name: repo-config
+        namespace: demo-system
 EOF
 ```
 

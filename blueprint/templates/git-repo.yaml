@@ -1,4 +1,4 @@
-apiVersion: github.kog.krateo.io/v1alpha1
+apiVersion: github.ogen.krateo.io/v1alpha1
 kind: Repo
 metadata:
   name: {{ .Release.Name }}-repo
@@ -9,8 +9,9 @@ metadata:
     krateo.io/deletion-policy: {{ .Values.git.toRepo.deletionPolicy | lower }}
     krateo.io/paused: "{{ default false (and .Values.global .Values.global.gracefullyPaused) }}"
 spec:
-  authenticationRefs:
-    bearerAuthRef: bearer-github-ref
+  configurationRef:
+    name: {{ .Values.git.toRepo.configurationRef.name }}
+    namespace: {{ .Values.git.toRepo.configurationRef.namespace }}
   org: {{ .Values.git.toRepo.org }}
   name: {{ .Values.git.toRepo.name }}
   private: {{ .Values.git.toRepo.private }}

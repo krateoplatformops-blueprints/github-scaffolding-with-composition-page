@@ -294,3 +294,20 @@ git:
     # default: false
     # @schema
     verbose: false
+    # @schema
+    # description: Configuration reference for the Repo resource
+    # type: object
+    # @schema
+    configurationRef:
+      # @schema
+      # description: Namespace of the RepoConfiguration resource
+      # type: string
+      # default: repo-config
+      # @schema
+      name: repo-config
+      # @schema
+      # description: Namespace of the RepoConfiguration resource
+      # type: string
+      # default: demo-system
+      # @schema
+      namespace: demo-system
