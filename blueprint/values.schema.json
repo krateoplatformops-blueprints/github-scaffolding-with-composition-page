@@ -336,6 +336,26 @@
               "description": "Whether to enable verbose logging for Repo controller",
               "title": "verbose",
               "type": "boolean"
+            },
+            "configurationRef": {
+              "additionalProperties": false,
+              "description": "Configuration reference for the Repo resource",
+              "properties": {
+                "name": {
+                  "default": "repo-config",
+                  "description": "Namespace of the RepoConfiguration resource",
+                  "title": "name",
+                  "type": "string"
+                },
+                "namespace": {
+                  "default": "demo-system",
+                  "description": "Namespace of the RepoConfiguration resource",
+                  "title": "namespace",
+                  "type": "string"
+                }
+              },
+              "title": "configurationRef",
+              "type": "object"
             }
           },
           "required": [
