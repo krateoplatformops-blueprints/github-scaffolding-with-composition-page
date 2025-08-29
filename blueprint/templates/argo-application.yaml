@@ -14,20 +14,21 @@ spec:
   destination:
     server: {{ .Values.argocd.application.destination.server }}
     namespace: {{ .Values.argocd.application.destination.namespace }}
-    {{- /* Normalize flags */ -}}
-    {{- $hasPaused   := and .Values.global (hasKey .Values.global "gracefullyPaused") -}}
-    {{- $paused      := and $hasPaused (eq (toString .Values.global.gracefullyPaused) "true") -}}
-    {{- $syncEnabled := default false .Values.argocd.application.syncEnabled -}}
 
-    {{- if $paused }}
-    syncPolicy: {}
-    {{- else if $syncEnabled }}
-    syncPolicy:
-      automated:
-        prune: {{ default false .Values.argocd.application.syncPolicy.automated.prune }}
-        selfHeal: {{ default false .Values.argocd.application.syncPolicy.automated.selfHeal }}
-      syncOptions:
-        - CreateNamespace=true
-    {{- else }}
-    syncPolicy: {}
-    {{- end }}
+  {{- /* Normalize flags */ -}}
+  {{- $hasPaused   := and .Values.global (hasKey .Values.global "gracefullyPaused") -}}
+  {{- $paused      := and $hasPaused (eq (toString .Values.global.gracefullyPaused) "true") -}}
+  {{- $syncEnabled := default false .Values.argocd.application.syncEnabled -}}
+
+  {{- if $paused }}
+  syncPolicy: {}
+  {{- else if $syncEnabled }}
+  syncPolicy:
+    automated:
+      prune: {{ default false .Values.argocd.application.syncPolicy.automated.prune }}
+      selfHeal: {{ default false .Values.argocd.application.syncPolicy.automated.selfHeal }}
+    syncOptions:
+      - CreateNamespace=true
+  {{- else }}
+  syncPolicy: {}
+  {{- end }}
