@@ -454,13 +454,13 @@
           "type": "string"
         },
         "gracefullyPaused": {
-          "default": false,
+          "default": "false",
           "description": "composition graceful pause",
           "examples": [
-           false
+           "false"
           ],
           "title": "gracefullyPaused",
-          "type": "boolean"
+          "type": "string"
         },
         "compositionApiVersion": {
           "default": "composition.krateo.io/v0-0-1",
