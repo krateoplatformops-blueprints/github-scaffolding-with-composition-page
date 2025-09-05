@@ -33,9 +33,9 @@ keywords:
 sources:
   - https://github.com/krateoplatformops-blueprints/github-scaffolding-with-composition-page
 annotations:
-  krateoSupportedVersion: ">= 2.5.0"
+  krateoSupportedVersion: ">= 2.5.1"
 
 dependencies:
 - name: portal-composition-page-generic
-  version: "0.0.1"
+  version: "1.0.0"
   repository: "https://marketplace.krateo.io"
