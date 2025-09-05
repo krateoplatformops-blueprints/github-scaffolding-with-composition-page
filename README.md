@@ -13,7 +13,7 @@ This Blueprint implements the following steps:
 ## Requirements
 
 - Install argo CLI: https://argo-cd.readthedocs.io/en/stable/cli_installation/
-- Have Krateo PlatformOps >= 2.5.0 installed: https://docs.krateo.io/
+- Have Krateo PlatformOps >= 2.5.1 installed: https://docs.krateo.io/
 
 ### Setup toolchain on krateo-system namespace
 
