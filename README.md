@@ -12,7 +12,7 @@ This Blueprint implements the following steps:
 ## Requirements
 
 - Install argo CLI: https://argo-cd.readthedocs.io/en/stable/cli_installation/
-- Have Krateo PlatformOps >= 2.5.0 installed: https://docs.krateo.io/
+- Have Krateo PlatformOps >= 2.5.1 installed: https://docs.krateo.io/
 
 ### Setup toolchain on krateo-system namespace
 
@@ -120,7 +120,7 @@ Download Helm Chart values:
 ```sh
 helm repo add marketplace https://marketplace.krateo.io
 helm repo update marketplace
-helm inspect values marketplace/github-scaffolding --version 0.0.1 > ~/github-scaffolding-values.yaml
+helm inspect values marketplace/github-scaffolding --version 1.0.0 > ~/github-scaffolding-values.yaml
 ```
 
 Modify the *github-scaffolding-values.yaml* file as the following example:
@@ -189,7 +189,7 @@ helm install <release-name> github-scaffolding \
   --namespace <release-namespace> \
   --create-namespace \
   -f ~/github-scaffolding-values.yaml
-  --version 0.0.1 \
+  --version 1.0.0 \
   --wait
 ```
 
@@ -208,7 +208,7 @@ spec:
   chart:
     repo: github-scaffolding
     url: https://marketplace.krateo.io
-    version: 0.0.1
+    version: 1.0.0
 EOF
 ```
 
@@ -216,7 +216,7 @@ Install the Blueprint using, as metadata.name, the *Composition* name (the Helm 
 
 ```sh
 cat <<EOF | kubectl apply -f -
-apiVersion: composition.krateo.io/v0-0-1
+apiVersion: composition.krateo.io/v1-0-0
 kind: GithubScaffolding
 metadata:
   name: <release-name> 
@@ -290,7 +290,7 @@ spec:
   chart:
     repo: portal-blueprint-page
     url: https://marketplace.krateo.io
-    version: 0.0.1
+    version: 1.0.0
 EOF
 ```
 
@@ -298,14 +298,14 @@ Install the Blueprint using, as metadata.name, the *Blueprint* name (the Helm Ch
 
 ```sh
 cat <<EOF | kubectl apply -f -
-apiVersion: composition.krateo.io/v0-0-1
+apiVersion: composition.krateo.io/v1-0-0
 kind: PortalBlueprintPage
 metadata:
   name: github-scaffolding	
   namespace: demo-system
 spec:
   blueprint:
-    version: 0.0.1 # this is the Blueprint version
+    version: 1.0.0 # this is the Blueprint version
     hasPage: false
   form:
     alphabeticalOrder: false

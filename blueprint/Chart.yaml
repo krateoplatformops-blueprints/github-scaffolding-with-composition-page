@@ -31,4 +31,4 @@ keywords:
 sources:
   - https://github.com/krateoplatformops-blueprints/github-scaffolding
 annotations:
-  krateoSupportedVersion: ">= 2.5.0"
+  krateoSupportedVersion: ">= 2.5.1"
