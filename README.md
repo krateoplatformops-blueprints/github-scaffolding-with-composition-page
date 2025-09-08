@@ -147,7 +147,6 @@ app:
     port: 31180
 git:
   unsupportedCapabilities: true
-  deletionPolicy: Orphan
   insecure: true
   fromRepo:
     scmUrl: https://github.com
