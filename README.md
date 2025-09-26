@@ -17,13 +17,9 @@ This Blueprint implements the following steps:
 ### Setup toolchain on krateo-system namespace
 
 ```sh
-helm repo add krateo https://charts.krateo.io
-helm repo update krateo
-helm install github-provider-kog krateo/github-provider-kog --namespace krateo-system --create-namespace --wait --version 0.2.1 \
-  --set restdefinitions.collaborator.enabled=false \
-  --set restdefinitions.teamrepo.enabled=false \
-  --set restdefinitions.workflow.enabled=false \
-  --set restdefinitions.runnergroup.enabled=false
+helm repo add marketplace https://marketplace.krateo.io
+helm repo update marketplace
+helm install github-provider-kog-repo marketplace/github-provider-kog-repo --namespace krateo-system --create-namespace --wait --version 1.0.0
 helm install git-provider krateo/git-provider --namespace krateo-system --create-namespace --wait --version 0.10.1
 helm repo add argo https://argoproj.github.io/argo-helm
 helm repo update argo
@@ -293,7 +289,7 @@ spec:
   chart:
     repo: portal-blueprint-page
     url: https://marketplace.krateo.io
-    version: 1.0.0
+    version: 1.0.4
 EOF
 ```
 
@@ -301,7 +297,7 @@ Install the Blueprint using, as metadata.name, the *Blueprint* name (the Helm Ch
 
 ```sh
 cat <<EOF | kubectl apply -f -
-apiVersion: composition.krateo.io/v1-0-0
+apiVersion: composition.krateo.io/v1-0-4
 kind: PortalBlueprintPage
 metadata:
   name: github-scaffolding	
