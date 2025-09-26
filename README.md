@@ -304,6 +304,7 @@ metadata:
   namespace: demo-system
 spec:
   blueprint:
+    url: https://marketplace.krateo.io
     version: 1.0.0 # this is the Blueprint version
     hasPage: false
   form:
