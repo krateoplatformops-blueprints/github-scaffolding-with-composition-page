@@ -289,7 +289,7 @@ spec:
   chart:
     repo: portal-blueprint-page
     url: https://marketplace.krateo.io
-    version: 1.0.4
+    version: 1.0.5
 EOF
 ```
 
@@ -297,7 +297,7 @@ Install the Blueprint using, as metadata.name, the *Blueprint* name (the Helm Ch
 
 ```sh
 cat <<EOF | kubectl apply -f -
-apiVersion: composition.krateo.io/v1-0-4
+apiVersion: composition.krateo.io/v1-0-5
 kind: PortalBlueprintPage
 metadata:
   name: github-scaffolding	
