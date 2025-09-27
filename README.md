@@ -13,7 +13,7 @@ This Blueprint implements the following steps:
 ## Requirements
 
 - Install argo CLI: https://argo-cd.readthedocs.io/en/stable/cli_installation/
-- Have Krateo PlatformOps >= 2.5.1 installed: https://docs.krateo.io/
+- Have Krateo PlatformOps 2.6.0 installed: https://docs.krateo.io/
 
 ### Setup toolchain on krateo-system namespace
 
@@ -121,7 +121,7 @@ Download Helm Chart values:
 ```sh
 helm repo add marketplace https://marketplace.krateo.io
 helm repo update marketplace
-helm inspect values marketplace/github-scaffolding-with-composition-page --version 1.0.0 > ~/github-scaffolding-with-composition-page-values.yaml
+helm inspect values marketplace/github-scaffolding-with-composition-page --version 1.1.0 > ~/github-scaffolding-with-composition-page-values.yaml
 ```
 
 Modify the *github-scaffolding-with-composition-page-values.yaml* file as the following example:
@@ -189,7 +189,7 @@ helm install <release-name> github-scaffolding-with-composition-page \
   --namespace <release-namespace> \
   --create-namespace \
   -f ~/github-scaffolding-with-composition-page-values.yaml
-  --version 1.0.0 \
+  --version 1.1.0 \
   --wait
 ```
 
@@ -208,7 +208,7 @@ spec:
   chart:
     repo: github-scaffolding-with-composition-page
     url: https://marketplace.krateo.io
-    version: 1.0.0
+    version: 1.1.0
 EOF
 ```
 
@@ -216,7 +216,7 @@ Install the Blueprint using, as metadata.name, the *Composition* name (the Helm 
 
 ```sh
 cat <<EOF | kubectl apply -f -
-apiVersion: composition.krateo.io/v1-0-0
+apiVersion: composition.krateo.io/v1-1-0
 kind: GithubScaffoldingWithCompositionPage
 metadata:
   name: <release-name> 
@@ -306,7 +306,7 @@ metadata:
 spec:
   blueprint:
     url: https://marketplace.krateo.io
-    version: 1.0.0 # this is the Blueprint version
+    version: 1.1.0 # this is the Blueprint version
     hasPage: true
   form:
     alphabeticalOrder: false
