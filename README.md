@@ -3,7 +3,7 @@
 This is a Blueprint used to scaffold a toolchain to host and deploy a fully functional frontend App (FireworksApp).
 
 This Blueprint implements the following steps:
-1. Create an empty Github repository (on github.com) - [link](https://github.com/krateoplatformops-blueprints/github-scaffolding-with-composition-page/blob/main/chart/templates/git-repo.yaml)
+1. Create an empty Github repository (on github.com) - [link](https://github.com/krateoplatformops-blueprints/github-scaffolding-with-composition-page/blob/main/blueprint/templates/git-repo.yaml)
 2. Push the code from the [skeleton](https://github.com/krateoplatformops/krateo-v2-template-fireworksapp/tree/main/skeleton) to the previously create repository - [link](https://github.com/krateoplatformops/krateo-v2-template-fireworksapp/blob/main/chart/templates/git-clone.yaml)
 3. A Continuous Integration pipeline (GitHub [workflow](https://github.com/krateoplatformops/krateo-v2-template-fireworksapp/blob/main/skeleton/.github/workflows/ci.yml)) will build the Dockerfile of the frontend app and the resulting image will be published as a Docker image on the GitHub Package registry
 4. An ArgoCD Application will be deployed to listen to the Helm Chart of the FireworksApp application and deploy the chart on the same Kubernetes cluster where ArgoCD is hosted
@@ -88,7 +88,7 @@ EOF
 ### Wait for GitHub Provider to be ready
 
 ```sh
-kubectl wait restdefinitions.ogen.krateo.io github-provider-kog-repo --for condition=Ready=True --namespace krateo-system --timeout=300s
+kubectl wait restdefinitions.ogen.krateo.io github-provider-kog-repo-repo --for condition=Ready=True --namespace krateo-system --timeout=300s
 ```
 
 ### Create a RepoConfiguration Custom Resource
@@ -188,7 +188,7 @@ helm install <release-name> github-scaffolding-with-composition-page \
   --repo https://marketplace.krateo.io \
   --namespace <release-namespace> \
   --create-namespace \
-  -f ~/github-scaffolding-with-composition-page-values.yaml
+  -f ~/github-scaffolding-with-composition-page-values.yaml \
   --version 1.2.0 \
   --wait
 ```
@@ -290,7 +290,7 @@ spec:
   chart:
     repo: portal-blueprint-page
     url: https://marketplace.krateo.io
-    version: 1.0.5
+    version: 1.1.1
 EOF
 ```
 
@@ -298,16 +298,16 @@ Install the Blueprint using, as metadata.name, the *Blueprint* name (the Helm Ch
 
 ```sh
 cat <<EOF | kubectl apply -f -
-apiVersion: composition.krateo.io/v1-1-0
+apiVersion: composition.krateo.io/v1-1-1
 kind: PortalBlueprintPage
 metadata:
-  name: github-scaffolding-with-composition-page
+  name: github-scaffolding
   namespace: demo-system
 spec:
   blueprint:
     repo: github-scaffolding-with-composition-page
     url: https://marketplace.krateo.io
-    version: 1.3.0
+    version: 1.2.0
     hasPage: true
     credentials: {}
   form:
@@ -388,7 +388,7 @@ spec:
       iterator: ${ .allowedNamespacesWithResource[] }
       template:
         id: composition-to-post
-        apiVersion: composition.krateo.io/v1-1-0
+        apiVersion: composition.krateo.io/v1-2-0
         namespace: ${ .namespace }
         resource: ${ .resource }
         verb: POST
@@ -410,7 +410,7 @@ spec:
       6. A composition page is available on Krateo Composable Portal
 
   panel:
-    markdown: Click here to deploy a **{{ .Release.Name }}** composition
+    markdown: Click here to deploy a **{{ .Values.global.compositionName }}** composition
     apiRef:
       name: "{{ .Values.global.compositionKind | lower }}-{{ .Values.global.compositionName }}-restaction-compositiondefinition-schema-ns"
       namespace: ""
