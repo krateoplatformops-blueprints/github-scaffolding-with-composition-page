@@ -297,7 +297,7 @@ EOF
 Install the Blueprint using, as metadata.name, the *Blueprint* name (the Helm Chart name of the blueprint):
 
 ```sh
-cat <<EOF | kubectl apply -f -
+cat <<'EOF' | kubectl apply -f -
 apiVersion: composition.krateo.io/v1-1-1
 kind: PortalBlueprintPage
 metadata:
