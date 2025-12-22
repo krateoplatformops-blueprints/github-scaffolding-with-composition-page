@@ -121,7 +121,7 @@ Download Helm Chart values:
 ```sh
 helm repo add marketplace https://marketplace.krateo.io
 helm repo update marketplace
-helm inspect values marketplace/github-scaffolding-with-composition-page --version 1.2.0 > ~/github-scaffolding-with-composition-page-values.yaml
+helm inspect values marketplace/github-scaffolding-with-composition-page --version 1.2.1 > ~/github-scaffolding-with-composition-page-values.yaml
 ```
 
 Modify the *github-scaffolding-with-composition-page-values.yaml* file as the following example:
@@ -189,7 +189,7 @@ helm install <release-name> github-scaffolding-with-composition-page \
   --namespace <release-namespace> \
   --create-namespace \
   -f ~/github-scaffolding-with-composition-page-values.yaml \
-  --version 1.2.0 \
+  --version 1.2.1 \
   --wait
 ```
 
@@ -208,7 +208,7 @@ spec:
   chart:
     repo: github-scaffolding-with-composition-page
     url: https://marketplace.krateo.io
-    version: 1.2.0
+    version: 1.2.1
 EOF
 ```
 
@@ -216,7 +216,7 @@ Install the Blueprint using, as metadata.name, the *Composition* name (the Helm 
 
 ```sh
 cat <<EOF | kubectl apply -f -
-apiVersion: composition.krateo.io/v1-2-0
+apiVersion: composition.krateo.io/v1-2-1
 kind: GithubScaffoldingWithCompositionPage
 metadata:
   name: <release-name> 
@@ -290,7 +290,7 @@ spec:
   chart:
     repo: portal-blueprint-page
     url: https://marketplace.krateo.io
-    version: 1.1.1
+    version: 1.1.2
 EOF
 ```
 
@@ -298,7 +298,7 @@ Install the Blueprint using, as metadata.name, the *Blueprint* name (the Helm Ch
 
 ```sh
 cat <<'EOF' | kubectl apply -f -
-apiVersion: composition.krateo.io/v1-1-1
+apiVersion: composition.krateo.io/v1-1-2
 kind: PortalBlueprintPage
 metadata:
   name: github-scaffolding
