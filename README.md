@@ -307,7 +307,7 @@ spec:
   blueprint:
     repo: github-scaffolding-with-composition-page
     url: https://marketplace.krateo.io
-    version: 1.2.0
+    version: 1.2.1
     hasPage: true
     credentials: {}
   form:
@@ -388,7 +388,7 @@ spec:
       iterator: ${ .allowedNamespacesWithResource[] }
       template:
         id: composition-to-post
-        apiVersion: composition.krateo.io/v1-2-0
+        apiVersion: composition.krateo.io/v1-2-1
         namespace: ${ .namespace }
         resource: ${ .resource }
         verb: POST
