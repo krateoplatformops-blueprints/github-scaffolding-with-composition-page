@@ -121,7 +121,7 @@ Download Helm Chart values:
 ```sh
 helm repo add marketplace https://marketplace.krateo.io
 helm repo update marketplace
-helm inspect values marketplace/github-scaffolding-with-composition-page --version 1.2.2 > ~/github-scaffolding-with-composition-page-values.yaml
+helm inspect values marketplace/github-scaffolding-with-composition-page --version 1.2.3 > ~/github-scaffolding-with-composition-page-values.yaml
 ```
 
 Modify the *github-scaffolding-with-composition-page-values.yaml* file as the following example:
@@ -189,7 +189,7 @@ helm install <release-name> github-scaffolding-with-composition-page \
   --namespace <release-namespace> \
   --create-namespace \
   -f ~/github-scaffolding-with-composition-page-values.yaml \
-  --version 1.2.2 \
+  --version 1.2.3 \
   --wait
 ```
 
@@ -208,7 +208,7 @@ spec:
   chart:
     repo: github-scaffolding-with-composition-page
     url: https://marketplace.krateo.io
-    version: 1.2.2
+    version: 1.2.3
 EOF
 ```
 
@@ -307,7 +307,7 @@ spec:
   blueprint:
     repo: github-scaffolding-with-composition-page
     url: https://marketplace.krateo.io
-    version: 1.2.2 # this is the Blueprint version
+    version: 1.2.3 # this is the Blueprint version
     hasPage: true
   form:
     alphabeticalOrder: false
