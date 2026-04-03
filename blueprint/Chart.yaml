@@ -37,5 +37,5 @@ annotations:
 
 dependencies:
 - name: portal-composition-page-generic
-  version: "1.4.2"
+  version: "1.4.3"
   repository: "https://marketplace.krateo.io"
